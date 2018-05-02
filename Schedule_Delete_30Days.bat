@@ -174,7 +174,7 @@ setLocal DISABLEDELAYEDEXPANSION
 set taskName=%extracted:@=_%
 
 ::Format and set the final name the task will be given
-set taskName="Delete_%taskName%_in_1_month"
+set taskName="Delete_[%taskName%]_in_1_month"
 
 ::Checks to ensure that deletethis doesn't contain double quotes
 ::Directories passed in that contain spaces are passed in with 
@@ -195,9 +195,9 @@ pause
 exit
 
 :schtasksTrue
-schtasks /create /sc once /sd 05/02/2018 /TR ""%CD%\Schedule_Delete_30Days.bat" '%deletethis%' '%taskName%'" /st 12:42 /tn %taskName%
+schtasks /create /sc once /sd %NewDate% /TR ""%CD%\Schedule_Delete_30Days.bat" '%deletethis%' '%taskName%'" /st 06:30 /tn %taskName%
 EXIT /b
 
 :schtasksFalse
-schtasks /create /sc once /sd 05/02/2018 /TR ""%CD%\Schedule_Delete_30Days.bat" '%deletethis:~1,-1%' '%taskName%'" /st 12:42 /tn %taskName%
+schtasks /create /sc once /sd %NewDate% /TR ""%CD%\Schedule_Delete_30Days.bat" '%deletethis:~1,-1%' '%taskName%'" /st 06:30 /tn %taskName%
 EXIT /b
